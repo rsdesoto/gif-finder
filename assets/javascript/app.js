@@ -10,6 +10,10 @@ var movies = [
     "Robocop"
 ];
 
+var seriesChosen;
+
+var seriesDiv;
+
 ///////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS //////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -22,6 +26,7 @@ function renderButtons(btnArr) {
         newbtn.attr("data-name", btnArr[i]);
         $("#button-row").append(newbtn);
     }
+    $("#more-gifs").hide();
 }
 
 // add the gifs to the page
@@ -105,6 +110,8 @@ function makeInfoDivs(results, seriesDiv) {
 $(document).on("click", ".movie", function(event) {
     event.preventDefault();
     //console.log($(this).attr("data-name"));
+    seriesChosen = $(this).attr("data-name");
+
     queryGif =
         "https://api.giphy.com/v1/gifs/search?q=" +
         $(this).attr("data-name") +
@@ -116,7 +123,7 @@ $(document).on("click", ".movie", function(event) {
         "&apikey=e3499611";
 
     // create a new div for text and gifs to go into
-    var seriesDiv = $("<div>");
+    seriesDiv = $("<div>");
     $("#gif-row").prepend(seriesDiv);
     seriesDiv.attr("class", "seriesdiv");
 
@@ -138,6 +145,37 @@ $(document).on("click", ".movie", function(event) {
             makeImgDivs(i, results, seriesDiv);
         }
     });
+
+    $("#more-gifs").show();
+});
+
+// grab gifs from each movie/show button
+$(document).on("click", "#more-gifs", function(event) {
+    event.preventDefault();
+
+    console.log(seriesChosen);
+
+    queryGif =
+        "https://api.giphy.com/v1/gifs/search?q=" +
+        seriesChosen +
+        "&api_key=evehAkPj4A9F79zKh9bn6msPax8979uD&limit=20";
+
+    // // create a new div for text and gifs to go into
+    // var seriesDiv = $("<div>");
+    // $("#gif-row").append(seriesDiv);
+    // seriesDiv.attr("class", "seriesdiv");
+
+    $.ajax({
+        url: queryGif,
+        method: "GET"
+    }).then(function(results) {
+        console.log(results);
+        for (var i = 10; i < results.data.length; i++) {
+            makeImgDivs(i, results, seriesDiv);
+        }
+    });
+
+    $("#more-gifs").hide();
 });
 
 // pause/play gifs

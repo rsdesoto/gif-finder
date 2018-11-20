@@ -1,3 +1,7 @@
+///////////////////////////////////////////////////////////////////////////////////////
+// VARIABLES //////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+
 var movies = [
     "Breaking Bad",
     "Jojo's Bizarre Adventure",
@@ -5,9 +9,9 @@ var movies = [
     "The Thing"
 ];
 
-function renderButtons(btnArr) {
-    // YOUR CODE GOES HERE
+var queryURL;
 
+function renderButtons(btnArr) {
     $("#button-row").empty();
     for (i = 0; i < btnArr.length; i++) {
         var newbtn = $("<button>" + btnArr[i] + "</button>");
@@ -17,14 +21,9 @@ function renderButtons(btnArr) {
     }
 }
 
-renderButtons(movies);
-
-// onclick: ajax call
-
-// var queryURL =
-//     "https://api.giphy.com/v1/gifs/search?q=the_matrix&api_key=evehAkPj4A9F79zKh9bn6msPax8979uD&limit=10";
-
-var queryURL;
+///////////////////////////////////////////////////////////////////////////////////////
+// FUNCTIONS //////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 
 // add the gifs to the page
 function makeImgDivs(i, results) {
@@ -51,7 +50,14 @@ function makeImgDivs(i, results) {
     $("#gif-row").prepend(gifDiv);
 }
 
-$(".movie").on("click", function(event) {
+///////////////////////////////////////////////////////////////////////////////////////
+// ON CLICK FUNCTIONALITY /////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+
+renderButtons(movies);
+
+// grab gifs from each movie/show button
+$(document).on("click", ".movie", function(event) {
     //console.log($(this).attr("data-name"));
     queryURL =
         "https://api.giphy.com/v1/gifs/search?q=" +
@@ -68,6 +74,7 @@ $(".movie").on("click", function(event) {
     });
 });
 
+// pause/play gifs
 $(document).on("click", ".picture", function() {
     event.preventDefault();
     console.log($(this));
@@ -78,4 +85,14 @@ $(document).on("click", ".picture", function() {
         $(this).attr("data-state", "still");
         $(this).attr("src", $(this).attr("data-still"));
     }
+});
+
+// add movies/tv shows to the page
+$(document).on("click", "#add-movie", function() {
+    event.preventDefault();
+    console.log($("#movie-input").val());
+    var newMovie = $("#movie-input").val();
+    console.log(newMovie);
+    movies.push(newMovie);
+    renderButtons(movies);
 });

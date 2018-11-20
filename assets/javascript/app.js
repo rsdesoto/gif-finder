@@ -120,7 +120,7 @@ $(document).on("click", ".movie", function(event) {
         "&api_key=evehAkPj4A9F79zKh9bn6msPax8979uD&limit=10";
 
     queryInfo =
-        "http://www.omdbapi.com/?t=" +
+        "https://www.omdbapi.com/?t=" +
         $(this).attr("data-name") +
         "&apikey=e3499611";
 

@@ -26,6 +26,31 @@ renderButtons(movies);
 
 var queryURL;
 
+// add the gifs to the page
+function makeImgDivs(i, results) {
+    // create a new div to put pictures in
+    var gifDiv = $("<div>");
+
+    // create a new <P> tag with the rating included
+    var rating = results.data[i].rating;
+    var p = $("<p>").text("Rating: " + rating);
+
+    // create a new image element with the source URL
+    var lkImg = $("<img>");
+    lkImg.attr("src", results.data[i].images.fixed_height_still.url);
+
+    // add "picture" class, data-still (still URL), data-animate (animated URL), and data-state (still/animated)
+    lkImg.attr("class", "picture");
+    lkImg.attr("data-state", "still");
+    lkImg.attr("data-still", results.data[i].images.fixed_height_still.url);
+    lkImg.attr("data-animate", results.data[i].images.fixed_height.url);
+
+    // append the image and rating to the new div, then prepend the new div onto the "gif-row" part of the page.
+    gifDiv.append(lkImg);
+    gifDiv.append(p);
+    $("#gif-row").prepend(gifDiv);
+}
+
 $(".movie").on("click", function(event) {
     //console.log($(this).attr("data-name"));
     queryURL =
@@ -37,41 +62,8 @@ $(".movie").on("click", function(event) {
         method: "GET"
     }).then(function(results) {
         console.log(results);
-        // console.log($(this).attr("data-name"));
-        // for the # of results in the results array
-
         for (var i = 0; i < results.data.length; i++) {
-            // create a new div
-            var gifDiv = $("<div>");
-
-            // collect the rating of the gif in question
-            var rating = results.data[i].rating;
-
-            // create a new <p> tag with the rating included
-            var p = $("<p>").text("Rating: " + rating);
-
-            // create a new image element with the source URL
-            var lkImg = $("<img>");
-            lkImg.attr("src", results.data[i].images.fixed_height_still.url);
-
-            lkImg.attr("class", "picture");
-            lkImg.attr("data-state", "still");
-            lkImg.attr(
-                "data-still",
-                results.data[i].images.fixed_height_still.url
-            );
-            lkImg.attr("data-animate", results.data[i].images.fixed_height.url);
-
-            //results.data[i].images.fixed_height.url is for animated
-
-            // prepend the image and the rating and prepend to the page
-            gifDiv.append(lkImg);
-            gifDiv.append(p);
-
-            // console.log(p);
-            // console.log(lkImg);
-
-            $("#gif-row").prepend(gifDiv);
+            makeImgDivs(i, results);
         }
     });
 });

@@ -10,8 +10,10 @@ var movies = [
     "Robocop"
 ];
 
+// initialize a marker for what series is currently being shown - for the additional gifs portion
 var seriesChosen;
 
+// initialize the new div all movie info and gifs are being put into
 var seriesDiv;
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -68,6 +70,7 @@ function makeImgDivs(i, results, seriesDiv) {
 function makeInfoDivs(results, seriesDiv) {
     var infoDiv = $("<div>");
 
+    // if the movie exists, print out the info about the movie. if it doesn't, print the error message
     if (results.Response != "False") {
         // create a new <p> tag with the series rating
         var rating = results.Rated;
@@ -90,7 +93,6 @@ function makeInfoDivs(results, seriesDiv) {
         infoDiv.append(releaseP);
         infoDiv.append(plotP);
         infoDiv.append(ratingP);
-        // $("#gif-row").append(infoDiv);
 
         seriesDiv.prepend(infoDiv);
     } else {
@@ -146,10 +148,11 @@ $(document).on("click", ".movie", function(event) {
         }
     });
 
+    // show the "more gifs" button
     $("#more-gifs").show();
 });
 
-// grab gifs from each movie/show button
+// get an additional 10 gifs for the series just printed
 $(document).on("click", "#more-gifs", function(event) {
     event.preventDefault();
 
@@ -159,11 +162,6 @@ $(document).on("click", "#more-gifs", function(event) {
         "https://api.giphy.com/v1/gifs/search?q=" +
         seriesChosen +
         "&api_key=evehAkPj4A9F79zKh9bn6msPax8979uD&limit=20";
-
-    // // create a new div for text and gifs to go into
-    // var seriesDiv = $("<div>");
-    // $("#gif-row").append(seriesDiv);
-    // seriesDiv.attr("class", "seriesdiv");
 
     $.ajax({
         url: queryGif,
@@ -175,6 +173,7 @@ $(document).on("click", "#more-gifs", function(event) {
         }
     });
 
+    // hide the button once this is done
     $("#more-gifs").hide();
 });
 

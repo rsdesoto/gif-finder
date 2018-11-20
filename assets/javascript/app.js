@@ -48,10 +48,14 @@ function makeImgDivs(i, results, seriesDiv) {
     lkImg.attr("data-still", results.data[i].images.fixed_height_still.url);
     lkImg.attr("data-animate", results.data[i].images.fixed_height.url);
 
+    // add a quick border
+    var breakUp = $("<hr>");
+
     // append the image and rating to the new div, then prepend the new div onto the "gif-row" part of the page.
     gifDiv.append(gifTitle);
     gifDiv.append(lkImg);
     gifDiv.append(p);
+    gifDiv.append(breakUp);
     seriesDiv.append(gifDiv);
 }
 
@@ -153,10 +157,24 @@ $(document).on("click", ".picture", function() {
 $(document).on("click", "#add-movie", function() {
     event.preventDefault();
     console.log($("#movie-input").val());
-    var newMovie = $("#movie-input").val();
-    console.log(newMovie);
-    movies.push(newMovie);
-    renderButtons(movies);
+    var newMovie = $("#movie-input")
+        .val()
+        .trim();
+
+    var inArray = false;
+
+    for (var i = 0; i < movies.length; i++) {
+        if (movies[i].toLowerCase() === newMovie.toLowerCase()) {
+            inArray = true;
+        }
+    }
+
+    if (!inArray) {
+        console.log(newMovie);
+        movies.push(newMovie);
+        renderButtons(movies);
+    }
+
     $("#movie-input").val("");
 });
 

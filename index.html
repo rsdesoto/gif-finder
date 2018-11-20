@@ -17,21 +17,58 @@
         />
     </head>
     <body>
-        <div id="button-row">
+        <nav class="navbar navbar-light bg-light fixed-top">
+            <a class="navbar-brand">Movie Search</a>
+            <form class="form-inline">
+                <input
+                    class="form-control mr-sm-2"
+                    type="search"
+                    placeholder="Add A Movie"
+                    aria-label="Search"
+                    id="movie-input"
+                />
+                <button
+                    class="btn btn-outline-success my-2 my-sm-0"
+                    type="submit"
+                    id="add-movie"
+                >
+                    Add Movie
+                </button>
+            </form>
+        </nav>
+
+        <div class="container" id="print-here">
+            <div class="row">
+                <div class="col" id="button-row">
+                    <button data-animal="cat">meow</button>
+                    <button data-animal="dog">woof</button>
+                    <button data-animal="bird">chirp</button>
+                    <button data-animal="penguin">chirp but penguin-y</button>
+                    <button data-animal="snake">hiss</button>
+                </div>
+            </div>
+            <div class="row"><div class="col" id="gif-row"></div></div>
+        </div>
+
+        <!-- <div id="button-row"> -->
+        <!--
             <button data-animal="cat">meow</button>
             <button data-animal="dog">woof</button>
             <button data-animal="bird">chirp</button>
             <button data-animal="penguin">chirp but penguin-y</button>
             <button data-animal="snake">hiss</button>
-        </div>
-        <form id="movie-form">
-            <label for="movie-input">Add a Movie</label>
-            <input type="text" id="movie-input" /><br />
+        -->
+        <!-- </div> -->
+        <!--
+            <form id="movie-form">
+                <label for="movie-input">Add a Movie</label>
+                <input type="text" id="movie-input" /><br />
 
-            <!-- Button triggers new movie to be added -->
-            <input id="add-movie" type="submit" value="Click Me" />
-        </form>
-        <div id="gif-row"></div>
+
+                <input id="add-movie" type="submit" value="Click Me" />
+            </form>
+        -->
+        <!-- <div id="gif-row"></div> -->
         <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

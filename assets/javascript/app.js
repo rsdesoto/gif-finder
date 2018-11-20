@@ -179,7 +179,7 @@ $(document).ready(function() {
     });
 
     // pause/play gifs
-    $(document).on("click", ".picture", function() {
+    $(document).on("click", ".picture", function(event) {
         event.preventDefault();
         console.log($(this));
         if ($(this).attr("data-state") === "still") {
@@ -192,7 +192,7 @@ $(document).ready(function() {
     });
 
     // add movies/tv shows to the page
-    $(document).on("click", "#add-movie", function() {
+    $(document).on("click", "#add-movie", function(event) {
         event.preventDefault();
         console.log($("#movie-input").val());
         var newMovie = $("#movie-input")
